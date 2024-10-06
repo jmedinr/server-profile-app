@@ -1,7 +1,7 @@
-import express from 'express';
-import cors from 'cors';
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
+const express = require('express');
+const cors = require('cors');
+const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
 
 // Cargar las variables del archivo .env
 dotenv.config();
@@ -82,7 +82,6 @@ const main = () => {
     methods: ['GET', 'POST'],
     credentials: true
   }));
-  
 
   const contactEmail = createEmailTransporter();
 
@@ -92,7 +91,6 @@ const main = () => {
       return;
     }
     console.log("Ready to send emails");
-    
   });
 
   configureRoutes(app, contactEmail);
