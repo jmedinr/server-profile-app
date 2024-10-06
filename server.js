@@ -73,18 +73,12 @@ const startServer = (app) => {
 
 // Flujo principal
 const main = () => {
-  validateEnvVariables();
+  validateEnvVariables(); // Validar variables de entorno al inicio
 
-  const app = configureServer();
-  app.use(cors());
-  app.use(cors({
-    origin: '*',  // React app running on this origin
-    methods: ['GET', 'POST'],
-    credentials: true
-  }));
+  const app = configureServer(); // Configurar servidor
+  const contactEmail = createEmailTransporter(); // Crear el transportador de correo
 
-  const contactEmail = createEmailTransporter();
-
+  // Verificar la conexión de correo electrónico
   contactEmail.verify((error) => {
     if (error) {
       console.error(`Email transport error: ${error.message}`);
@@ -93,8 +87,8 @@ const main = () => {
     console.log("Ready to send emails");
   });
 
-  configureRoutes(app, contactEmail);
-  startServer(app);
+  configureRoutes(app, contactEmail); // Configurar rutas
+  startServer(app); // Iniciar el servidor
 };
 
-main();
+main(); // Ejecutar el flujo principal
